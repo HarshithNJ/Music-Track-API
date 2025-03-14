@@ -5,6 +5,7 @@ import org.music_track.music_track.service.trackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,8 +15,8 @@ public class trackController {
     trackService service;
 
     @PostMapping("/tracks")
-    public ResponseEntity<Object> createTrack(track track) {
-        return service.createTrack(track);
+    public ResponseEntity<Object> createTrack(@RequestBody track track1) {
+        return service.createTrack(track1);
     }
     
 }

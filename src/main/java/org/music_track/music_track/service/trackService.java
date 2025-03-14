@@ -16,18 +16,18 @@ public class trackService {
     @Autowired
     trackRepository repository;
 
-    public ResponseEntity<Object> createTrack(track track) {
-        if(repository.existsByTitle(track.getTitle())){
+    public ResponseEntity<Object> createTrack(track track1) {
+        if(repository.existsByTitle(track1.getTitle())){
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("error", "Track Already Exists with the Title" + track.getTitle());
+            map.put("error", "Track Already Exists with the Title : "+track1.getTitle());
 
             return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
         }else{
-            repository.save(track);
+            repository.save(track1);
 
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("success", "Track Created Successfully");
-            map.put("Track Details", track);
+            map.put("Track Details", track1);
 
             return new ResponseEntity<Object>(map, HttpStatus.CREATED);
         }
