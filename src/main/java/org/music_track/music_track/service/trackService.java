@@ -1,6 +1,7 @@
 package org.music_track.music_track.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.music_track.music_track.dto.track;
@@ -31,6 +32,24 @@ public class trackService {
 
             return new ResponseEntity<Object>(map, HttpStatus.CREATED);
         }
+    }
+
+    public ResponseEntity<Object> createMultipleTrack(List<track> tracks) {
+        for(track track1 : tracks){
+            if(repository.existsByTitle(track1.getTitle())){
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("error", "Track Already Exists with the Title : "+track1.getTitle());
+    
+                return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
+            }
+        }
+        repository.saveAll(tracks);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("success", "Tracks Created Successfully");
+        map.put("Tracks Details", tracks);
+
+        return new ResponseEntity<Object>(map, HttpStatus.CREATED);
     }
     
 }
