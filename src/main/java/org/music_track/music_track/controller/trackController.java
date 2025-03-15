@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class trackController {
@@ -16,6 +19,8 @@ public class trackController {
     @Autowired
     trackService service;
 
+
+    //To Add Music Track Records
     @PostMapping("/tracks")
     public ResponseEntity<Object> createTrack(@RequestBody track track1) {
         return service.createTrack(track1);
@@ -25,5 +30,13 @@ public class trackController {
     public ResponseEntity<Object> createMultipleTrack(@RequestBody List<track> tracks){
         return service.createMultipleTrack(tracks);
     }
+
+
+    //To Fetch The Track Details From the Database
+    @GetMapping("/tracks")
+    public ResponseEntity<Object> getTrack(){
+        return service.getTrack();
+    }
+    
     
 }

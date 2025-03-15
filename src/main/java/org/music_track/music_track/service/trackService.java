@@ -51,5 +51,40 @@ public class trackService {
 
         return new ResponseEntity<Object>(map, HttpStatus.CREATED);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    public ResponseEntity<Object> getTrack() {
+        List<track> tracks = repository.findAll();
+
+        if(tracks.isEmpty()){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "No Tracks Found");
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Tracks Found Successfully");
+            map.put("Tracks Details", tracks);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
     
 }
