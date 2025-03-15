@@ -86,5 +86,22 @@ public class trackService {
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
         }
     }
+
+    public ResponseEntity<Object> fetchByArtist(String artist) {
+        List<track> tracks = repository.findByArtist(artist);
+
+        if(tracks.isEmpty()){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "No Tracks Found with the Artist : "+artist);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Tracks Found Successfully");
+            map.put("Tracks Details", tracks);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
     
 }
