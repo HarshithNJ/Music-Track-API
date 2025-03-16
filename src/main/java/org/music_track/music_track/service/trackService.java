@@ -3,6 +3,7 @@ package org.music_track.music_track.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.music_track.music_track.dto.track;
 import org.music_track.music_track.repository.trackRepository;
@@ -118,6 +119,25 @@ public class trackService {
             map.put("Track Details", tracks);
 
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
+
+    public ResponseEntity<Object> deleteTrack(int id) {
+        Optional<track> track = repository.findById(id);
+
+        if(track.isPresent()){
+            repository.deleteById(id);
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Track Deleted Successfully");
+            map.put("Track Details", track.get());
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "No Track Found with the ID : "+id);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
     }
     
