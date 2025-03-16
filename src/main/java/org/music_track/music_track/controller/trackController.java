@@ -43,5 +43,9 @@ public class trackController {
         return service.fetchByArtist(artist);
     }
     
+    @GetMapping("/tracks/album/{album}")
+    public ResponseEntity<Object> fetchByAlbum(@PathVariable String album){
+        return service.fetchByAlbum(album);
+    }
     
 }

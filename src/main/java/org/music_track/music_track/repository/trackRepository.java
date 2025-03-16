@@ -11,4 +11,6 @@ public interface trackRepository extends JpaRepository<track, Integer>{
 
     List<track> findByArtist(String artist);
 
+    List<track> findByAlbum(String album);
+
 }
