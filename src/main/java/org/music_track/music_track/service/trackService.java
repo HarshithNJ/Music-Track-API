@@ -140,5 +140,35 @@ public class trackService {
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    public ResponseEntity<Object> updateTrack(int id, track track2) {
+        Optional<track> track = repository.findById(id);
+
+        if(track.isPresent()){
+            track t = track.get();
+
+            if(track2.getTitle() != null)
+                t.setTitle(track2.getTitle());
+            if(track2.getArtist() != null)
+                t.setArtist(track2.getArtist());
+            if(track2.getAlbum() != null)
+                t.setAlbum(track2.getAlbum());
+            if(track2.getDuration() != 0)
+                t.setDuration(track2.getDuration());
+
+            repository.save(t);
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Track Updated successfully");
+            map.put("track Details", t);
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "Track Details Not Found");
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }
+    }
     
 }
